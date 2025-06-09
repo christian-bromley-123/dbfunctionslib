@@ -1658,6 +1658,30 @@ std::vector<std::wstring> dbfunctions::getResultRow(SQLHANDLE hStmt, int row, bo
 	return getResultVector;
 }
 
+std::vector<std::vector<std::wstring>> dbfunctions::getResultTable(SQLHANDLE hStmt)
+{
+	// Get number of columns and rows
+	long long rowCount;
+	SQLRowCount(hStmt, &rowCount);
+
+	short columnCount;
+	SQLNumResultCols(hStmt, &columnCount);
+
+	// Get column names
+	std::vector<std::wstring> colNames = dbfunctions::getAllResultColumnNames(hStmt);
+
+	std::vector<std::vector<std::wstring>> tableData;
+
+	for (int i = 1; i <= rowCount; i++) {
+		bool lastResult = false;
+		if (i == rowCount) {
+			lastResult = true;
+		}
+		tableData.push_back(dbfunctions::getResultRow(hStmt, i, lastResult));
+	}
+	return tableData;
+}
+
 std::vector<std::wstring> dbfunctions::getColumn (SQLHANDLE hStmt, bool isDistinct, std::wstring table, std::wstring column, std::wstring param, std::wstring target)
 {
 	std::wstring distinct = L"";

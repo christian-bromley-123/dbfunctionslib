@@ -64,6 +64,7 @@ namespace dbfunctions {
     std::vector<std::wstring>   getResultRow(SQLHANDLE hStmt, int row = 1, bool lastResult = true);
     std::wstring                getResultColumnName(SQLHANDLE hStmt, int column);
     std::vector<std::wstring>   getAllResultColumnNames(SQLHANDLE hStmt);
+    std::vector<std::vector<std::wstring>> getResultTable(SQLHANDLE hStmt);
     std::vector<std::wstring>   getColumn(SQLHANDLE hStmt, bool isDistinct, std::wstring table, std::wstring column, std::wstring param = L"", std::wstring target = L"");
     std::wstring                getDeviceTypeFromModelId(SQLHANDLE hStmt, std::wstring deviceModelId);
     std::wstring                getDeviceTableFromModelId(SQLHANDLE hStmt, std::wstring deviceModelId);
